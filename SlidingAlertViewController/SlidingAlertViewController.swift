@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  SlidingAlertController.swift
 //  SlidingAlertViewController
 //
 //  Created by Pierre Liebenberg on 7/16/18.
