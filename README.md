@@ -1,5 +1,5 @@
 # Sliding Custom Alert Controller
-An animated alert controller for presenting customizable alerts to iOS users.
+An animated alert controller for presenting customizable iOS alerts.
 
 ![sliding alert controller](https://user-images.githubusercontent.com/38790651/43541966-57ef2b72-9591-11e8-8632-57cd0923bfd8.gif)
 
