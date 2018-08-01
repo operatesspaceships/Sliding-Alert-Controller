@@ -4,7 +4,7 @@ An animated alert controller for presenting customizable iOS alerts.
 ![sliding alert controller](https://user-images.githubusercontent.com/38790651/43541966-57ef2b72-9591-11e8-8632-57cd0923bfd8.gif)
 
 # Usage
-1. Drag SlidingAlertController.swift into your Xcode project.
+1. Drag SlidingAlertViewController.swift into your Xcode project.
 2. The alert controller is instantiated and customized in code. In an alert- or error-handling function:
   * instantiate the alert controller,
   * set its delegate and attributes,
