@@ -58,6 +58,6 @@ alertController.view.rightAnchor.constraint(equalTo: self.view.rightAnchor).isAc
 ```
 
 # Notes
-* The `SlidingAlertAttributes` enum provides a list of customizable attributes. Default values are provided via nil-coalescing operators.
+* The `SlidingAlertAttributes` enum provides a list of customizable attributes. Default values are provided.
 * The alert controller's delegate must conform to the `SlidingAlertViewControllerDelegate` protocol.
 * This protocol requires implementing the `alertViewControllerDidDisappear(alertViewController: SlidingAlertViewController)` function in which you can place logic to run after the alert controller is dismissed.
