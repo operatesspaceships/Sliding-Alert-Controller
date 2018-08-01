@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="SBg-Xh-noa">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="JFH-ip-rLF">
+            <objects>
+                <viewController definesPresentationContext="YES" providesPresentationContextTransitionStyle="YES" id="SBg-Xh-noa" customClass="ViewController" customModule="SlidingAlertViewController" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GwL-ij-IN6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sjm-6k-hhJ">
+                                <rect key="frame" x="102" y="288" width="170" height="91"/>
+                                <state key="normal" title="Show Alert"/>
+                                <connections>
+                                    <action selector="showAlert:" destination="SBg-Xh-noa" eventType="touchUpInside" id="UJ1-Rc-rNL"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Sjm-6k-hhJ" firstAttribute="leading" secondItem="YL9-Jt-0uv" secondAttribute="leading" constant="102" id="H0k-nR-Ncm"/>
+                            <constraint firstItem="Sjm-6k-hhJ" firstAttribute="centerY" secondItem="GwL-ij-IN6" secondAttribute="centerY" id="Lvl-3e-iIl"/>
+                            <constraint firstItem="Sjm-6k-hhJ" firstAttribute="centerX" secondItem="GwL-ij-IN6" secondAttribute="centerX" id="Qd7-oW-z0K"/>
+                            <constraint firstItem="Sjm-6k-hhJ" firstAttribute="top" secondItem="YL9-Jt-0uv" secondAttribute="top" constant="268" id="r6e-43-mcr"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="YL9-Jt-0uv"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G8N-sG-vsL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-780" y="22"/>
+        </scene>
+    </scenes>
+</document>
