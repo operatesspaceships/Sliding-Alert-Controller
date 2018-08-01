@@ -9,9 +9,10 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     @IBAction func showAlert(_ sender: Any) {
         
+        // Customize alert controller's appearance and content
         var alertAttributes = [SlidingAlertViewController.SlidingAlertAttributes: Any]()
         alertAttributes.updateValue(UIImage(named: "AlertTertiaryActionIcon") as Any, forKey: .tertiaryButtonImage)
         alertAttributes.updateValue("Library Card Expired", forKey: .title)
@@ -27,6 +28,8 @@ class ViewController: UIViewController {
         
         alertController.attributes = alertAttributes
         
+        
+        // Set up alert controller's actions
         alertController.alertPrimaryAction = {
             print("Primary action performed.")
             alertController.dismissAlertViewController()
@@ -40,6 +43,8 @@ class ViewController: UIViewController {
             print("Tertiary action performed.")
         }
         
+        
+        // Add alert controller to stack and set constraints
         self.addChildViewController(alertController)
         
         self.view.addSubview(alertController.view)
@@ -51,14 +56,7 @@ class ViewController: UIViewController {
         alertController.view.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         alertController.view.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
         
-        print("Clicked.")
-    
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
 }
 
 extension ViewController: SlidingAlertViewControllerDelegate {
@@ -66,7 +64,6 @@ extension ViewController: SlidingAlertViewControllerDelegate {
     func alertViewControllerDidDisappear(alertViewController: SlidingAlertViewController) {
         print("Alert dismissed.")
     }
-    
     
 }
 
