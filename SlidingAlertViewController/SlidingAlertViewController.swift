@@ -16,6 +16,49 @@ public protocol SlidingAlertViewControllerDelegate {
 open class SlidingAlertViewController: UIViewController {
     
     // MARK: - Public Properties
+    
+    /**
+    
+     Use this enum to access and customize the alert controller's attributes. Default values are provided for all attributes.
+     
+    # Usage
+    Declare an array of `SlidingAlertAttributes` and inject it into the SlideAlertController's `attributes` property.
+     
+    # Example
+     ```
+     var alertAttributes = [SlidingAlertViewController.SlidingAlertAttributes: Any]()
+     
+     alertAttributes.updateValue(UIImage(named: "AlertTertiaryActionIcon") as Any, forKey: .tertiaryButtonImage)
+     alertAttributes.updateValue("Library Card Expired", forKey: .title)
+     alertAttributes.updateValue("HKD99DK03", forKey: .subtitle)
+     alertAttributes.updateValue("Looks like your library card has expired. In order to place a hold on this title, you'll need to renew your library card.", forKey: .description)
+     alertAttributes.updateValue(UIColor.red, forKey: .tintColor)
+     alertAttributes.updateValue(CGFloat(8), forKey: .primaryButtonCornerRadius)
+
+     let alertController = SlidingAlertViewController()
+
+     alertController.delegate = self
+     alertController.attributes = alertAttributes
+     ```
+     
+     The following attributes are included:
+ 
+         .tintColor
+         .cornerRadius
+         .title
+         .subtitle
+         .description
+         .titleColor
+         .subtitleColor
+         .descriptionColor
+         .primaryButtonTitle
+         .primaryButtonCornerRadius
+         .secondaryButtonTitle
+         .tertiaryButtonImage
+     
+     - Precondition: The `alertController`'s `delegate` should be set immediately after instantiation in order to populate the alert with content.
+     
+     */
     public enum SlidingAlertAttributes {
         case tintColor
         case cornerRadius
