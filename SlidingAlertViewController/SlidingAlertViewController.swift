@@ -93,6 +93,21 @@ open class SlidingAlertViewController: UIViewController {
     private var tertiaryActionButton = UIButton()
     
     
+    // MARK: - Constraints
+    private var alertCardLeftAnchorForPortrait: NSLayoutConstraint!
+    private var alertCardRightAnchorForPortrait: NSLayoutConstraint!
+    private var alertCardHeightConstraintForPortrait: NSLayoutConstraint!
+    private var secondaryActionButtonBottomAnchorForPortrait: NSLayoutConstraint!
+    private var alertCardBottomAnchorForPortrait: NSLayoutConstraint!
+   
+    private var alertCardWidthAnchorForLandscape: NSLayoutConstraint!
+    private var alertCardHeightConstraintForLandscape: NSLayoutConstraint!
+    private var secondaryActionButtonBottomAnchorForLandscape: NSLayoutConstraint!
+    private var  alertCardBottomAnchorForLandscape: NSLayoutConstraint!
+    
+    private var alertCardWidthAnchorForSplitView: NSLayoutConstraint!
+    
+    
     // MARK: - Lifecycle
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -101,16 +116,17 @@ open class SlidingAlertViewController: UIViewController {
     
     override open func viewLayoutMarginsDidChange() {
         super.viewLayoutMarginsDidChange()
-        
-        
-        self.alertCard.updateConstraints()
-        self.primaryActionButton.updateConstraints()
-        self.errorTitle.updateConstraints()
+        setConstraints()
     }
     
     override open func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         slideInAlertCard()
+    }
+    
+    override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        self.setConstraints()
+        super.viewWillTransition(to: size, with: coordinator)
     }
     
     // MARK: - Setup
@@ -141,21 +157,132 @@ open class SlidingAlertViewController: UIViewController {
         setUpAlertCard()
     }
     
+    private func setConstraints() {
+        
+        switch self.traitCollection.userInterfaceIdiom{
+            
+        case .phone:
+            switch self.traitCollection.horizontalSizeClass {
+                
+            case .compact:
+                if self.traitCollection.verticalSizeClass == .compact { // Phone landscape
+                    alertCardLeftAnchorForPortrait.isActive = false
+                    alertCardRightAnchorForPortrait.isActive = false
+                    alertCardWidthAnchorForLandscape.isActive = true
+                    alertCardHeightConstraintForLandscape.isActive = true
+                    alertCardHeightConstraintForPortrait.isActive = false
+                    alertCardBottomAnchorForLandscape.isActive = true
+                    alertCardBottomAnchorForPortrait.isActive = false
+                    alertCard.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+                    
+                    
+                } else if self.traitCollection.verticalSizeClass == .regular { // Phone portrait
+                    alertCardLeftAnchorForPortrait.isActive = true
+                    alertCardRightAnchorForPortrait.isActive = true
+                    alertCardWidthAnchorForLandscape.isActive = false
+                    alertCardHeightConstraintForLandscape.isActive = false
+                    alertCardHeightConstraintForPortrait.isActive = true
+                    alertCardBottomAnchorForLandscape.isActive = false
+                    alertCardBottomAnchorForPortrait.isActive = true
+                    alertCard.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+                }
+                
+            
+            case .regular:
+                if self.traitCollection.verticalSizeClass == .compact { // iPhone Plus landscape
+                    alertCardLeftAnchorForPortrait.isActive = false
+                    alertCardRightAnchorForPortrait.isActive = false
+                    alertCardWidthAnchorForLandscape.isActive = true
+                    alertCardHeightConstraintForLandscape.isActive = true
+                    alertCardHeightConstraintForPortrait.isActive = false
+                    alertCardBottomAnchorForLandscape.isActive = true
+                    alertCardBottomAnchorForPortrait.isActive = false
+                    alertCard.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+                }
+                
+            default:
+                return
+                
+            }
+            
+        case .pad:
+            switch self.traitCollection.horizontalSizeClass {
+                
+            case .compact:
+                alertCardWidthAnchorForSplitView.isActive = true
+                alertCardLeftAnchorForPortrait.isActive = false
+                alertCardRightAnchorForPortrait.isActive = false
+                alertCardWidthAnchorForLandscape.isActive = false
+                alertCardHeightConstraintForPortrait.isActive = true
+                alertCardHeightConstraintForLandscape.isActive = false
+                alertCardBottomAnchorForLandscape.isActive = true
+                alertCardBottomAnchorForPortrait.isActive = false
+                alertCard.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+                
+            case .regular:
+                alertCardWidthAnchorForLandscape.isActive = true
+                alertCardWidthAnchorForSplitView.isActive = false
+                alertCardLeftAnchorForPortrait.isActive = false
+                alertCardRightAnchorForPortrait.isActive = false
+               
+                alertCardHeightConstraintForPortrait.isActive = true
+                alertCardHeightConstraintForLandscape.isActive = false
+                alertCardBottomAnchorForLandscape.isActive = true
+                alertCardBottomAnchorForPortrait.isActive = false
+                alertCard.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+                
+            default:
+                return
+                
+            }
+            
+        default:
+            return
+            
+        }
+        self.alertCard.updateConstraints()
+        self.errorTitle.updateConstraints()
+        self.secondaryActionButton.updateConstraints()
+        self.primaryActionButton.updateConstraints()
+    }
+    
+    
+    
     private func setUpAlertCard() {
         // Set up alert card
         alertCard = UIView()
         self.view.addSubview(alertCard)
         
+        // General Constraints
         alertCard.translatesAutoresizingMaskIntoConstraints = false
-        alertCard.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        alertCard.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        alertCard.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        alertCard.heightAnchor.constraint(equalToConstant: 400).isActive = true
+        alertCard.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        
+        // Constraints for Landscape Orientation
+        alertCardWidthAnchorForLandscape = alertCard.widthAnchor.constraint(lessThanOrEqualToConstant: 500)
+        alertCardHeightConstraintForLandscape = alertCard.heightAnchor.constraint(equalToConstant: 300)
+        secondaryActionButtonBottomAnchorForLandscape = secondaryActionButton.bottomAnchor.constraint(equalTo: alertCard.bottomAnchor, constant: 1)
+        alertCardBottomAnchorForLandscape = alertCard.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10)
+        
+        
+        // Constraints for Potrait Orientation
+        alertCardLeftAnchorForPortrait = alertCard.leftAnchor.constraint(equalTo: view.leftAnchor)
+        alertCardRightAnchorForPortrait = alertCard.rightAnchor.constraint(equalTo: view.rightAnchor)
+        alertCardHeightConstraintForPortrait = alertCard.heightAnchor.constraint(equalToConstant: 400)
+        secondaryActionButtonBottomAnchorForPortrait = secondaryActionButton.bottomAnchor.constraint(equalTo: alertCard.bottomAnchor, constant: -20)
+        alertCardBottomAnchorForPortrait = alertCard.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        
+        alertCardWidthAnchorForSplitView = alertCard.widthAnchor.constraint(equalToConstant: self.view.frame.width * 0.95)
         
         alertCard.backgroundColor = .white
         alertCard.layer.cornerRadius = 33
         alertCard.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
+        
+        alertCard.backgroundColor = .white
+        alertCard.layer.cornerRadius = 33
+        
+        self.setConstraints()
+    
         let distance = self.view.frame.maxY - alertCard.frame.minY
         alertCard.transform = CGAffineTransform(translationX: 0, y: distance)
         
@@ -237,9 +364,35 @@ open class SlidingAlertViewController: UIViewController {
         
         primaryActionButton.translatesAutoresizingMaskIntoConstraints = false
         primaryActionButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        primaryActionButton.bottomAnchor.constraint(equalTo: secondaryActionButton.topAnchor, constant: -5).isActive = true
-        primaryActionButton.leftAnchor.constraint(equalTo: alertCard.leftAnchor, constant: 10).isActive = true
-        primaryActionButton.rightAnchor.constraint(equalTo: alertCard.rightAnchor, constant: -10).isActive = true
+        primaryActionButton.bottomAnchor.constraint(equalTo: secondaryActionButton.topAnchor, constant: -2).isActive = true
+        
+        
+        switch self.traitCollection.horizontalSizeClass {
+            
+        case .compact:
+            if self.traitCollection.verticalSizeClass == .compact {
+            
+                primaryActionButton.widthAnchor.constraint(equalToConstant: 343).isActive = true
+                
+            } else {
+                
+                if self.traitCollection.userInterfaceIdiom == .pad {
+                    primaryActionButton.widthAnchor.constraint(equalToConstant: self.alertCardWidthAnchorForSplitView.constant * 0.75).isActive = true
+                } else {
+                    primaryActionButton.widthAnchor.constraint(equalToConstant: self.view.frame.width * 0.75).isActive = true
+                }
+                
+                
+            }
+            
+        case .regular:
+            
+            primaryActionButton.widthAnchor.constraint(equalToConstant: 343).isActive = true
+            
+        default:
+            return
+        }
+        
         primaryActionButton.centerXAnchor.constraint(equalTo: alertCard.centerXAnchor).isActive = true
         
         primaryActionButton.addTarget(self, action: #selector(primaryAction), for: .touchUpInside)
@@ -254,13 +407,9 @@ open class SlidingAlertViewController: UIViewController {
         secondaryActionButton.setTitle(attributes?[.secondaryButtonTitle] as? String ?? "Learn More", for: .normal)
         secondaryActionButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
         
-        /*for state: UIControlState in [.normal, .highlighted, .disabled, .selected, .focused, .application, .reserved] {
-            secondaryActionButton.setTitle(NSLocalizedString("Title", comment: ""), for: state)
-        }*/
-        
         secondaryActionButton.translatesAutoresizingMaskIntoConstraints = false
         secondaryActionButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        secondaryActionButton.bottomAnchor.constraint(equalTo: alertCard.bottomAnchor, constant: -20).isActive = true
+        secondaryActionButton.bottomAnchor.constraint(equalTo: alertCard.bottomAnchor, constant: -5).isActive = true
         secondaryActionButton.leftAnchor.constraint(equalTo: alertCard.leftAnchor, constant: 0).isActive = true
         secondaryActionButton.rightAnchor.constraint(equalTo: alertCard.rightAnchor, constant: 0).isActive = true
         
@@ -291,7 +440,6 @@ open class SlidingAlertViewController: UIViewController {
         tertiaryActionButton.leftAnchor.constraint(equalTo: alertCard.leftAnchor, constant: 10).isActive = true
         
         tertiaryActionButton.addTarget(self, action: #selector(tertiaryAction), for: .touchUpInside)
-        
     }
     
     private func slideInAlertCard() {
@@ -359,6 +507,8 @@ open class SlidingAlertViewController: UIViewController {
         self.alertTertiaryAction!()
     }
     
+    
+    // MARK: - Deinitialization
     deinit {
         attributes = nil
         tertiaryButtonImage = nil
