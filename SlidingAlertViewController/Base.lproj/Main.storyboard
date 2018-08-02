@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sjm-6k-hhJ">
-                                <rect key="frame" x="102" y="288" width="170" height="91"/>
+                                <rect key="frame" x="102" y="318.5" width="170" height="30"/>
                                 <state key="normal" title="Show Alert"/>
                                 <connections>
                                     <action selector="showAlert:" destination="SBg-Xh-noa" eventType="touchUpInside" id="UJ1-Rc-rNL"/>
@@ -31,7 +31,6 @@
                             <constraint firstItem="Sjm-6k-hhJ" firstAttribute="leading" secondItem="YL9-Jt-0uv" secondAttribute="leading" constant="102" id="H0k-nR-Ncm"/>
                             <constraint firstItem="Sjm-6k-hhJ" firstAttribute="centerY" secondItem="GwL-ij-IN6" secondAttribute="centerY" id="Lvl-3e-iIl"/>
                             <constraint firstItem="Sjm-6k-hhJ" firstAttribute="centerX" secondItem="GwL-ij-IN6" secondAttribute="centerX" id="Qd7-oW-z0K"/>
-                            <constraint firstItem="Sjm-6k-hhJ" firstAttribute="top" secondItem="YL9-Jt-0uv" secondAttribute="top" constant="268" id="r6e-43-mcr"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YL9-Jt-0uv"/>
                     </view>
